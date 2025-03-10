@@ -20,11 +20,6 @@ public class UniversityController {
     private UniversityService universityService;
 
     @GetMapping
-    public List<University> getUniversities() {
-        return universityService.findUniversity(); // ✅ JSON 반환
-    }
-
-    @GetMapping("/filter")
     public List<University> getUniversities(
             @RequestParam(name = "continent", required = false) String continent,
             @RequestParam(name = "country", required = false) String country,
