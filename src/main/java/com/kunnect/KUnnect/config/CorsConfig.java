@@ -1,4 +1,4 @@
-package com.kunnect.KUnnect;
+package com.kunnect.KUnnect.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -34,4 +34,13 @@ public class JpaUserRepository implements UserRepository {
     public List<User> findAll() {
         return null;
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return em.createQuery("select m from User m where m.email = :email", User.class)
+                .setParameter("email", email)
+                .getResultList()
+                .stream()
+                .findAny();
+    }
 }
