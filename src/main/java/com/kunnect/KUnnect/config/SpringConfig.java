@@ -1,9 +1,6 @@
 package com.kunnect.KUnnect.config;
 
-import com.kunnect.KUnnect.repository.JpaUniversityRepository;
-import com.kunnect.KUnnect.repository.JpaUserRepository;
-import com.kunnect.KUnnect.repository.UniversityRepository;
-import com.kunnect.KUnnect.repository.UserRepository;
+import com.kunnect.KUnnect.repository.*;
 import com.kunnect.KUnnect.service.UniversityService;
 import com.kunnect.KUnnect.service.UserService;
 import com.kunnect.KUnnect.util.JwtUtil;
@@ -28,7 +25,12 @@ public class SpringConfig {
 
     @Bean
     public UserService userService() {
-        return new UserService(userRepository(), jwtUtil());
+        return new UserService(userRepository(), jwtUtil(), universityRepository(), interestedUniversityRepository());
+    }
+
+    @Bean
+    public InterestedUniversityRepository interestedUniversityRepository() {
+        return new JpaInterestedUniversityRepository(em);
     }
 
     @Bean

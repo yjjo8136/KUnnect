@@ -1,6 +1,7 @@
 package com.kunnect.KUnnect.repository;
 
 import com.kunnect.KUnnect.domain.University;
+import com.kunnect.KUnnect.domain.User;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -28,5 +29,14 @@ public class JpaUniversityRepository implements UniversityRepository {
     public List<University> findAll() {
         return em.createQuery("select u from University u", University.class)
                 .getResultList();
+    }
+
+    @Override
+    public Optional<University> findById(Long id) {
+        return em.createQuery("select m from University m where m.univId = :id", University.class)
+                .setParameter("id", id)
+                .getResultList()
+                .stream()
+                .findAny();
     }
 }

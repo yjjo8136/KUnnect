@@ -22,7 +22,11 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findById(Long id) {
-        return Optional.empty();
+        return em.createQuery("select m from User m where m.id = :id", User.class)
+                .setParameter("id", id)
+                .getResultList()
+                .stream()
+                .findAny();
     }
 
     @Override

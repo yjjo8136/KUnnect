@@ -6,17 +6,17 @@ import jakarta.persistence.*;
 @Table(name = "user")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
     private String nickname;
     private String email;
     private String password;
 
     public void setId(Long id) {
-        this.id = id;
+        this.user_id = id;
     }
 
     public Long getId() {
-        return id;
+        return user_id;
     }
 
     public void setNickname(String nickname) {

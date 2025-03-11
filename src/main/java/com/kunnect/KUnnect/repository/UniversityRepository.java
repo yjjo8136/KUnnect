@@ -12,4 +12,6 @@ public interface UniversityRepository {
 
     List<University> findAll();
 
+    Optional<University> findById(Long id);
+
 }
