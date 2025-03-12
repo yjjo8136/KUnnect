@@ -95,4 +95,20 @@ public class UserService {
                 .map(InterestedUniversity::getUniversity)
                 .collect(Collectors.toList());
     }
+
+    // 🌟 관심 대학 삭제
+    public void deleteInterestedUniversity(Long userId, Long universityId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+        University university = universityRepository.findById(universityId)
+                .orElseThrow(() -> new IllegalArgumentException("대학을 찾을 수 없습니다."));
+
+        // 관심 대학으로 추가되지 않은 경우
+        Optional<InterestedUniversity> existing = interestedUniversityRepository.findByUserAndUniversity(user, university);
+        if (existing.isEmpty()) {
+            throw new IllegalStateException("관심 대학으로 추가되지 않았습니다.");
+        }
+
+        interestedUniversityRepository.delete(existing.get());
+    }
 }

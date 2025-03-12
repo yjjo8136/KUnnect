@@ -38,4 +38,9 @@ public class JpaInterestedUniversityRepository implements InterestedUniversityRe
                 .findAny();
     }
 
+    @Override
+    public void delete(InterestedUniversity interestedUniversity) {
+        em.remove(interestedUniversity);
+    }
+
 }

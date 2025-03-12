@@ -36,4 +36,12 @@ public class UserController {
         return ResponseEntity.ok(universities);
     }
 
+    @DeleteMapping("/{userId}/interests/{universityId}")
+    public ResponseEntity<?> deleteInterestedUniversity(
+            @PathVariable("userId") Long userId, // 변수 이름 명시
+            @PathVariable("universityId") Long universityId) { // 변수 이름 몥시
+        userService.deleteInterestedUniversity(userId, universityId);
+        return ResponseEntity.ok("관심 대학에서 삭제되었습니다.");
+    }
+
 }

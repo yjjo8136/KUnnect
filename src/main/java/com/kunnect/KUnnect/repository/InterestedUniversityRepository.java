@@ -17,4 +17,6 @@ public interface InterestedUniversityRepository {
     Optional<InterestedUniversity> findByUserAndUniversity(User user, University university); // 특정 유저가 특정 대학을 관심 대학으로 추가했는지 확인
 
     void save(InterestedUniversity interestedUniversity);
+
+    void delete(InterestedUniversity interestedUniversity);
 }
