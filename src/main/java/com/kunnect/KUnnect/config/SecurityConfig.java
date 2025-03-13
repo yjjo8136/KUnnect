@@ -30,9 +30,11 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.disable()) // **CORS 설정 활성화**
                 .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions().sameOrigin()) // ✅ WebSocket 차단 방지
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/api/auth/signup", "/**").permitAll()
+                        .requestMatchers("/ws/**", "/app/**", "/topic/**", "ws://**").permitAll() // ✅ WebSocket 허용
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
@@ -43,10 +45,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // React 프론트엔드 허용
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 모든 HTTP 요청 허용
-        configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 허용
-        configuration.setAllowCredentials(true); // JWT 인증 허용
+        configuration.setAllowedOriginPatterns(List.of("*")); // ✅ allowedOrigins("*") → allowedOriginPatterns("*")로 변경
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true); // ✅ 인증 정보 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

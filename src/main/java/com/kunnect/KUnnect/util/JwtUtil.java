@@ -15,10 +15,11 @@ public class JwtUtil {
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
     // ✅ user_id 포함하여 JWT 생성
-    public String generateToken(String email, Long userId) {
+    public String generateToken(String email, Long userId, String nickname) {
         return Jwts.builder()
                 .setSubject(email) // email을 subject로 설정
                 .claim("user_id", userId) // user_id 추가
+                .claim("nickname", nickname)  // ✅ nickname 포함
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -44,6 +45,17 @@ public class JwtUtil {
                 .getBody();
         return claims.get("user_id", Long.class);
     }
+
+    // ✅ JWT에서 `nickname` 추출
+    public String extractNickname(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("nickname", String.class);
+    }
+
 
     // ✅ 토큰 유효성 검증
     public boolean validateToken(String token) {
