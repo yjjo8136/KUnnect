@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -49,4 +50,7 @@ public class UniversityService {
         return universities;
     }
 
+    public Optional<University> getUniversityById(Long univId) {
+        return universityRepository.findById(univId);
+    }
 }

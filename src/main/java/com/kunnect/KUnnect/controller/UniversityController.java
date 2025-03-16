@@ -5,10 +5,7 @@ import com.kunnect.KUnnect.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,12 @@ public class UniversityController {
     ) {
         return universityService.filterUniversity(continent, country, search);
     }
+
+    // ✅ 특정 대학의 정보를 가져오는 API 추가
+    @GetMapping("/{univId}")
+    public University getUniversityById(@PathVariable Long univId) {
+        return universityService.getUniversityById(univId)
+                .orElseThrow(() -> new RuntimeException("해당 대학을 찾을 수 없습니다."));
+    }
+
 }
