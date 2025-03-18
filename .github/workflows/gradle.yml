@@ -21,6 +21,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      # ✅ 3. Gradle 테스트 실행 (테스트 실패 시 배포 중단)
+      - name: Run Tests
+        run: |
+          chmod +x gradlew
+          ./gradlew test
+
       # ✅ 3. Gradle 빌드 (JAR 생성)
       - name: Build with Gradle
         run: |
