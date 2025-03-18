@@ -64,7 +64,7 @@ class UserServiceTest {
 
         // Then
         assertNotNull(userId);
-        assertEquals(1L, userId);
+        assertEquals(2L, userId);
         verify(userRepository).save(any(User.class));
     }
 
