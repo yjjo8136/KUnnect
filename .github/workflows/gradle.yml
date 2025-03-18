@@ -5,6 +5,10 @@ on:
     branches:
       - main  # 🚀 main 브랜치에 push될 때 실행
 
+permissions:
+  checks: write  # ✅ GitHub Actions에서 체크 실행 결과를 업로드할 수 있도록 설정
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
