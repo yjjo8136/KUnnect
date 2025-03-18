@@ -28,7 +28,7 @@ jobs:
           ./gradlew test
 
       - name: Upload Test Report  # ✅ 테스트 결과를 GitHub Artifacts에 저장
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: build/reports/tests/test
